@@ -1,0 +1,67 @@
+import React, { useState } from 'react'
+import '../Form.css'
+
+const LoginForm = () => {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [isEmailValid, setIsEmailValid] = useState(true)
+    const [isPasswordValid, setIsPasswordValid] = useState(true)
+
+    // eslint-disable-next-line
+    const emailvalidator = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$";
+
+    const submitHandler = () => {
+        if (password.length <= 5 || email === '' || isEmailValid === false || isPasswordValid === false) {
+
+            alert('Please ENter valid details')
+        }
+        else {
+            let userCreds = {
+                email: email,
+                password: password
+            }
+            console.log(userCreds)
+
+            setEmail('')
+            setPassword('')
+        }
+    }
+    return (
+        <div className='form-maincontainer'>
+            <div className='input-elements-maincontainer'>
+                <p>Email</p>
+                <input type='email'
+                    placeholder='Your Registered Email'
+                    value={email}
+                    onChange={(e) => {
+                        setEmail(e.target.value)
+                        if (!email.match(emailvalidator)) {
+                            setIsEmailValid(false)
+                        }
+                        else {
+                            setIsEmailValid(true)
+                        }
+                    }} />
+                {!isEmailValid && <span>Please Enter a Valid Email</span>}
+
+                <p>Password</p>
+                <input type='password'
+                    placeholder='Password'
+                    value={password}
+                    onChange={(e) => {
+                        setPassword(e.target.value)
+                        if (password.length < 5) {
+                            setIsPasswordValid(false)
+                        }
+                        else {
+                            setIsPasswordValid(true)
+                        }
+                    }} />
+                {!isPasswordValid && <span>Please Enter a Valid Password</span>}
+            </div>
+            <button onClick={submitHandler}> Log-In</button>
+        </div>
+    )
+}
+
+export default LoginForm

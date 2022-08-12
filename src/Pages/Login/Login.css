@@ -1,0 +1,51 @@
+.login-maincontainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 35px;
+    height: 70vh;
+}
+
+.login-signup-option-container {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #403f44;
+}
+
+.login-signup-option-container button {
+    background-color: #403f44;
+    color: aliceblue;
+    outline: none;
+    border: none;
+    height: 6vh;
+    width: 30%;
+    margin: 10px;
+    font-size: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.6s;
+}
+
+.active {
+    width: 50% !important;
+    font-size: 20px !important;
+    background-color: #102f97 !important;
+    transition: 0.6s ease-in-out;
+}
+
+.connecting-line {
+    background-color: #403f44;
+    height: 70px;
+    width: 0;
+    padding: 0;
+    border: 1px solid #403f44;
+}
+
+
+@media screen and (max-width:1024px) {
+    .login-signup-option-container {
+        width: 60%;
+    }
+}

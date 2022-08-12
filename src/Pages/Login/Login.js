@@ -1,8 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
+import LoginForm from '../../Components/LoginForm/LoginForm'
+import SignupForm from '../../Components/SignupForm/SignupForm'
 import './Login.css'
+
+
 const Login = () => {
+    const [NavigationState, setNavigationState] = useState('login')
     return (
-        <div>Login</div>
+        <div className='login-maincontainer'>
+            <div className='login-signup-option-container'>
+                <button className={NavigationState === 'login' ? 'active' : ''} onClick={() => { setNavigationState('login') }}>Login</button>
+                <button className={NavigationState === 'signup' ? 'active' : ''} onClick={() => { setNavigationState('signup') }}>Signup</button>
+            </div>
+            <div className='connecting-line'></div>
+            {NavigationState === 'login' ? <LoginForm /> : <SignupForm />}
+        </div>
     )
 }
 
