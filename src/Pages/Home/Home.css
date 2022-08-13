@@ -1,0 +1,29 @@
+.home-maincontainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.add-note-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+}
+
+.show-notes-maincontainer {
+    align-items: center;
+    margin-top: 45px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.show-notes-container {
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}

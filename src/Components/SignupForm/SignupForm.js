@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const SignupForm = () => {
+const SignupForm = (props) => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -28,6 +28,7 @@ const SignupForm = () => {
             setEmail('')
             setName('')
             setPassword('')
+            props.setLogin()
         }
     }
 

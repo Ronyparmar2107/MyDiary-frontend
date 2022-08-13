@@ -1,0 +1,65 @@
+.notes-maincontainer,
+.onFocus-container {
+    height: fit-content;
+    color: aliceblue !important;
+    background-color: #202124;
+    width: 30%;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid transparent;
+    border-color: #5f6368;
+    transition: 0.6s ease-in-out;
+    margin-bottom: 15px;
+    position: relative;
+    cursor: pointer;
+}
+
+.onFocus-container {
+    transform: scale(1.5);
+    position: absolute;
+    top: 35%;
+    left: 35%;
+    z-index: 100;
+}
+
+.backdrop {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    height: 99vh;
+    width: 99vw;
+    background-color: #20212477;
+    z-index: 100;
+}
+
+.notes-title h4 {
+    font-size: 20px;
+    margin: 0;
+
+}
+
+.bookmark-container,
+.other-options-container {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    height: 36px;
+    width: 20px;
+    z-index: 10;
+    right: 4%;
+}
+
+.bookmark-container {
+    top: 3%;
+}
+
+.other-options-container {
+    bottom: 3%;
+    right: 16% !important;
+}
+
+.bookmark-button {
+    padding: auto;
+}

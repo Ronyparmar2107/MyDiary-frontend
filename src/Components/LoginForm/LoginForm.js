@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../Form.css'
 
-const LoginForm = () => {
+const LoginForm = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isEmailValid, setIsEmailValid] = useState(true)
@@ -24,6 +24,7 @@ const LoginForm = () => {
 
             setEmail('')
             setPassword('')
+            props.setLogin()
         }
     }
     return (
