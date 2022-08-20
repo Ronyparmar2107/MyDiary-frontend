@@ -7,6 +7,8 @@ import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
+import Tooltip from '@mui/material/Tooltip';
+
 import './AddNoteCard.css'
 
 const NoteCard = () => {
@@ -17,15 +19,19 @@ const NoteCard = () => {
     const [IsValid, setIsValid] = useState(false)
     const [open, setOpen] = React.useState(true);
 
+    //Added for material ui 
     const darkTheme = createTheme({
         palette: {
             mode: 'dark',
         },
     });
 
+    //Closes the Model
     const closeHandler = () => {
         setIsOpen(false)
     }
+
+    //Checks the inputs and saves the note
     const checkHandler = () => {
         if (Title.length > 3 || Description.length > 5) {
             if (tag === '') { setTag('General') }
@@ -47,7 +53,9 @@ const NoteCard = () => {
             <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
                 <div className={IsOpen ? 'add-notes-maincontainer' : 'add-notes-close'}>
                     <div className='cancel-container'>
-                        <HighlightOffRoundedIcon onClick={closeHandler} style={{ cursor: 'pointer' }}></HighlightOffRoundedIcon>
+                        <Tooltip title="Cancel" placement="top" arrow>
+                            <HighlightOffRoundedIcon onClick={closeHandler} style={{ cursor: 'pointer' }}></HighlightOffRoundedIcon>
+                        </Tooltip>
                     </div>
                     <div className='add-notes-title'>
                         <Input placeholder='Title'
@@ -60,7 +68,7 @@ const NoteCard = () => {
                     <div className='add-notes-description'>
                         <Input placeholder='Write a note...'
                             value={Description}
-                            style={{ color: 'white' }}
+                            style={{ color: 'white', width: '100%' }}
                             onClick={() => {
                                 setIsOpen(true)
                                 console.log('runned')
@@ -89,7 +97,9 @@ const NoteCard = () => {
                         </Box>
                     </div>
                     {Title !== '' && Description !== '' && <div className='save-container'>
-                        <CheckCircleOutlineRoundedIcon onClick={checkHandler} style={{ cursor: 'pointer', fontSize: '40px' }}></CheckCircleOutlineRoundedIcon>
+                        <Tooltip title="Save" placement="bottom" arrow>
+                            <CheckCircleOutlineRoundedIcon onClick={checkHandler} style={{ cursor: 'pointer', fontSize: '40px' }}></CheckCircleOutlineRoundedIcon>
+                        </Tooltip>
                     </div>}
                 </div>
                 {IsValid && <Box sx={{ width: '31%' }}>

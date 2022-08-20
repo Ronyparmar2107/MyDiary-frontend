@@ -1,9 +1,8 @@
 .notes-maincontainer,
 .onFocus-container {
-    height: fit-content;
+    min-height: fit-content;
     color: aliceblue !important;
     background-color: #202124;
-    width: 30%;
     border-radius: 8px;
     padding: 10px;
     display: flex;
@@ -11,16 +10,22 @@
     border: 1px solid transparent;
     border-color: #5f6368;
     transition: 0.6s ease-in-out;
-    margin-bottom: 15px;
+    margin: 10px 5px;
     position: relative;
     cursor: pointer;
 }
 
+.notes-maincontainer {
+    min-width: fit-content;
+}
+
 .onFocus-container {
+    max-width: 100% !important;
+    word-break: break-all;
     transform: scale(1.5);
     position: absolute;
-    top: 35%;
-    left: 35%;
+    top: auto;
+    left: auto;
     z-index: 100;
 }
 
@@ -29,9 +34,26 @@
     top: 0%;
     left: 0%;
     height: 99vh;
-    width: 99vw;
+    width: 97vw;
     background-color: #20212477;
     z-index: 100;
+}
+
+.notes-maincontainer .notes-title,
+.notes-maincontainer .notes-description {
+    height: fit-content;
+    width: fit-content;
+}
+
+.onFocus-container .notes-title,
+.onFocus-container .notes-description {
+    height: fit-content;
+    width: 100%;
+}
+
+.notes-description {
+    margin-bottom: 15px;
+
 }
 
 .notes-title h4 {
@@ -40,15 +62,22 @@
 
 }
 
+.notes-maincontainer:hover>.bookmark-container,
+.notes-maincontainer:hover>.other-options-container {
+    display: flex !important;
+    transition: 00.6s;
+}
+
 .bookmark-container,
 .other-options-container {
-    display: flex;
+    display: none;
     justify-content: center;
     position: absolute;
-    height: 36px;
+    height: 38px !important;
     width: 20px;
     z-index: 10;
     right: 4%;
+    transition: 00.6s;
 }
 
 .bookmark-container {
@@ -56,10 +85,34 @@
 }
 
 .other-options-container {
+    /* display: flex; */
+    justify-content: flex-end;
     bottom: 3%;
-    right: 16% !important;
+    right: 0% !important;
 }
 
-.bookmark-button {
-    padding: auto;
+.colourPallate {
+    position: absolute;
+    bottom: -7vh;
+    right: 0%;
+    height: 5vh;
+    width: 90%;
+    display: flex;
+    background: #e2e2e2;
+    z-index: 10;
+    border-radius: 10px;
+    padding: 5px;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: #202124 5px 10px 10px;
+
+}
+
+.colour {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    border-color: #5f6368;
+    cursor: pointer;
 }

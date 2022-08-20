@@ -13,6 +13,7 @@ function App() {
     setLogIn(true)
   }
   return (
+
     <Router>
       <Header />
       <Switch>
@@ -27,6 +28,7 @@ function App() {
       </Switch>
 
     </Router>
+
   );
 }
 

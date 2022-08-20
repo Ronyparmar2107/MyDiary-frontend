@@ -1,0 +1,60 @@
+{
+    "notes": [
+        {
+            "id": "1",
+            "title": "First Note",
+            "description": "This is my first note to be displayed",
+            "tag": "General",
+            "isBookmark": false,
+            "backgroundColor": "#8896ab"
+        },
+        {
+            "id": "2",
+            "title": "ISWA",
+            "description": "Submit the practical 1-2-3 on monday",
+            "tag": "TO-DO",
+            "isBookmark": false,
+            "backgroundColor": "#935fa7"
+        },
+        {
+            "id": "5",
+            "title": "ISWA",
+            "description": "Submit the practical 1-2-3 on monday",
+            "tag": "TO-DO",
+            "isBookmark": false,
+            "backgroundColor": "#d64933"
+        },
+        {
+            "id": "6",
+            "title": "ISWA",
+            "description": "Submit the practical 1-2-3 on monday",
+            "tag": "TO-DO",
+            "isBookmark": false,
+            "backgroundColor": "#7f7979"
+        },
+        {
+            "id": "7",
+            "title": "ISWA",
+            "description": "Submit the practical 1-2-3 on monday",
+            "tag": "TO-DO",
+            "isBookmark": false,
+            "backgroundColor": "#b39c4d"
+        },
+        {
+            "id": "3",
+            "title": "Independance day",
+            "description": "This will be the 75th independence day.Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.",
+            "tag": "General",
+            "isBookmark": true,
+            "backgroundColor": "#2f9c95"
+        },
+        {
+            "id": "4",
+            "title": "To-Do in the My-Diary application",
+            "description": "1.R&D on how to get a smooth scale 2. Make the buttons work 3. Set up the redux/ try to learn useContext 4. Add additional things in backend  5. animations 6. Doodles",
+            "tag": "General",
+            "isBookmark": true,
+            "backgroundColor": "#1e2f23"
+        }
+    ]
+}
