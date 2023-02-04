@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Login from './Pages/Login/Login';
 import Home from './Pages/Home/Home';
@@ -9,6 +9,14 @@ import Header from './Components/Header/Header';
 function App() {
 
   const [logIn, setLogIn] = useState(false)
+
+  useEffect(() => {
+    let token = localStorage.getItem('authtoken')
+    if (token !== undefined) {
+      setLogIn(true)
+    }
+  }, [])
+
   const logInHandler = () => {
     setLogIn(true)
   }
@@ -18,8 +26,7 @@ function App() {
       <Header />
       <Switch>
         <Route path='/'>
-          {/* {logIn ? <Home /> : <Login login={logInHandler} />} */}
-          <Home />
+          {logIn ? <Home /> : <Login login={logInHandler} />}
         </Route>
         <Route path='/login'>
           {logIn ? <Home /> : <Login login={logInHandler} />}

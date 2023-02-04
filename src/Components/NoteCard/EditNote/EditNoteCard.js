@@ -9,15 +9,14 @@ import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 import Tooltip from '@mui/material/Tooltip';
 
-import './AddNoteCard.css'
+import './EditNoteCard.css'
 
-const NoteCard = () => {
-    const [Title, setTitle] = useState('')
-    const [Description, setDescription] = useState('')
-    const [IsOpen, setIsOpen] = useState(false)
-    const [tag, setTag] = React.useState('');
+const EditNoteCard = (props) => {
+    const [Title, setTitle] = useState(props.Title)
+    const [Description, setDescription] = useState(props.Description)
+    const [tag, setTag] = useState(props.Tag.toString());
     const [IsValid, setIsValid] = useState(false)
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = useState(true);
 
     //Added for material ui 
     const darkTheme = createTheme({
@@ -26,34 +25,12 @@ const NoteCard = () => {
         },
     });
 
-    //Closes the Model
-    const closeHandler = () => {
-        setIsOpen(false)
-    }
-
     //Checks the inputs and saves the note
-    const checkHandler = async () => {
+    const checkHandler = () => {
         if (Title.length > 3 || Description.length > 5) {
             if (tag === '') { setTag('General') }
-
-            const NoteData = {
-                title: Title,
-                description: Description,
-                tag: tag
-            }
-            const authtoken = localStorage.getItem('authtoken')
-            const response = await fetch('http://localhost:3001/api/note/createnote', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    "auth-token": authtoken.toString()
-                },
-                body: JSON.stringify(NoteData)
-            })
-
-            let res = response.json()
-            console.log(res)
-            setIsOpen(false)
+            props.Edit(Title, Description, tag)
+            props.Close()
             setTitle('')
             setDescription('')
             setTag('')
@@ -65,13 +42,15 @@ const NoteCard = () => {
     }
 
 
+
+
     return (
         <ThemeProvider theme={darkTheme} >
-            <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
-                <div className={IsOpen ? 'add-notes-maincontainer' : 'add-notes-close'}>
-                    <div className='cancel-container'>
-                        <Tooltip title="Cancel" placement="top" arrow>
-                            <HighlightOffRoundedIcon onClick={closeHandler} style={{ cursor: 'pointer' }}></HighlightOffRoundedIcon>
+            <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center', position: 'absolute' }}>
+                <div className='add-notes-maincontainer' >
+                    <div className='cancel-container' >
+                        <Tooltip title="Cancel" placement="top" arrow >
+                            <HighlightOffRoundedIcon style={{ cursor: 'pointer' }} onClick={props.Close}></HighlightOffRoundedIcon>
                         </Tooltip>
                     </div>
                     <div className='add-notes-title'>
@@ -86,10 +65,6 @@ const NoteCard = () => {
                         <Input placeholder='Write a note...'
                             value={Description}
                             style={{ color: 'white', width: '100%' }}
-                            onClick={() => {
-                                setIsOpen(true)
-                                console.log('runned')
-                            }}
                             onChange={(e) => { setDescription(e.target.value) }}
                             disableUnderline={true} />
 
@@ -148,4 +123,4 @@ const NoteCard = () => {
     )
 }
 
-export default NoteCard
+export default EditNoteCard

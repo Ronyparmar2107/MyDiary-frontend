@@ -10,7 +10,7 @@ const LoginForm = (props) => {
     // eslint-disable-next-line
     const emailvalidator = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$";
 
-    const submitHandler = () => {
+    const submitHandler = async () => {
         if (password.length <= 5 || email === '' || isEmailValid === false || isPasswordValid === false) {
 
             alert('Please ENter valid details')
@@ -20,11 +20,23 @@ const LoginForm = (props) => {
                 email: email,
                 password: password
             }
-            console.log(userCreds)
 
-            setEmail('')
-            setPassword('')
-            props.setLogin()
+            const response = await fetch('http://localhost:3001/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userCreds)
+            })
+
+            const data = await response.json()
+            console.log(data)
+            if (data.success) {
+                localStorage.clear()
+                localStorage.setItem('authtoken', data.authtoken)
+                setEmail('')
+                setPassword('')
+                props.setLogin()
+            }
+
         }
     }
     return (

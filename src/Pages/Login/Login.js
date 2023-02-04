@@ -6,7 +6,10 @@ import './Login.css'
 
 const Login = (props) => {
     const [NavigationState, setNavigationState] = useState('login')
-    const logInHandlerfunction = props.login
+    const logInHandlerfunction = () => {
+
+        props.login()
+    }
     return (
         <div className='login-maincontainer'>
             <div className='login-signup-option-container'>
