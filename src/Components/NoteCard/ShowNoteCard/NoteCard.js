@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { IconButton } from '@mui/material';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
+import BookmarkIcon from '@mui/icons-material/BookmarkOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import ColorLensOutlinedIcon from '@mui/icons-material/ColorLensOutlined';
@@ -60,8 +61,14 @@ const NoteCard = (props) => {
                 <div className={!inFocus ? 'notes-maincontainer' : 'onFocus-container'} style={{ backgroundColor: props.Color }}>
                     <div className='bookmark-container'>
                         <Tooltip title="Bookmark" placement="top" arrow>
-                            <IconButton className='bookmark-button' onClick={props.bookmark}>
-                                <BookmarkBorderOutlinedIcon style={{ fontSize: 23 }}></BookmarkBorderOutlinedIcon>
+                            <IconButton className='bookmark-button' onClick={() => props.bookmark(props.id)}>
+                                {/* <BookmarkIcon style={{ fontSize: 23 }}></BookmarkIcon> */}
+                                {
+                                    props.isBookmark ? <BookmarkIcon style={{ fontSize: 23 }}></BookmarkIcon>
+                                        : <BookmarkBorderOutlinedIcon style={{ fontSize: 23 }}></BookmarkBorderOutlinedIcon>
+
+                                }
+
                             </IconButton>
                         </Tooltip>
                     </div>

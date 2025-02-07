@@ -11,7 +11,7 @@ import Tooltip from '@mui/material/Tooltip';
 
 import './AddNoteCard.css'
 
-const NoteCard = () => {
+const NoteCard = (props) => {
     const [Title, setTitle] = useState('')
     const [Description, setDescription] = useState('')
     const [IsOpen, setIsOpen] = useState(false)
@@ -52,6 +52,7 @@ const NoteCard = () => {
             })
 
             let res = response.json()
+            props.newNoteAdded()
             console.log(res)
             setIsOpen(false)
             setTitle('')

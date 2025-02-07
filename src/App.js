@@ -12,7 +12,8 @@ function App() {
 
   useEffect(() => {
     let token = localStorage.getItem('authtoken')
-    if (token !== undefined) {
+    console.log(token)
+    if (token !== undefined && token !== null) {
       setLogIn(true)
     }
   }, [])

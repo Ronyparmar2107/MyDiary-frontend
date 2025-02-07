@@ -12,7 +12,7 @@ const SignupForm = (props) => {
     // eslint-disable-next-line
     const emailvalidator = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$";
 
-    const submitHandler = () => {
+    const submitHandler = async () => {
         if (name.length <= 5 || password.length <= 5 || email === '' || isEmailValid === false || isNameValid === false || isPasswordValid === false) {
 
             alert('Please ENter valid details')
@@ -23,6 +23,22 @@ const SignupForm = (props) => {
                 email: email,
                 password: password
             }
+            const response = await fetch("http://localhost:3001/api/auth/createuser", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(user)
+            })
+
+            let data = await response.json()
+            console.log(data)
+            if (data.success) {
+                localStorage.clear()
+                localStorage.setItem('authtoken', data.authtoken)
+                setEmail('')
+                setPassword('')
+                props.setLogin()
+            }
+
             console.log(user)
 
             setEmail('')

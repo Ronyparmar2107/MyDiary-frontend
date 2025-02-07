@@ -31,13 +31,27 @@ const Home = () => {
                     }
                 })
                 let NotesData = await response.json()
-                setNotes(NotesData.notes)
+                let sortedNotes = sortForBookmark(NotesData.notes)
+                setNotes(sortedNotes)
             }
         }
 
         fetchData()
     }, [authtoken])
 
+
+    const newNoteAdded = async () => {
+        const response = await fetch('http://localhost:3001/api/note/fetchallnotes', {
+            method: 'GET',
+            headers: {
+                "auth-token": authtoken.toString()
+            }
+        })
+        let NotesData = await response.json()
+
+        let sortedNotes = sortForBookmark(NotesData.note)
+        setNotes(sortedNotes)
+    }
 
     //To delete a note
     const deleteHandler = async (id) => {
@@ -61,26 +75,40 @@ const Home = () => {
         })
         let NewData = await response.json()
 
-        console.log(NewData.note)
-        setNotes(NewData.note)
+
+        let sortedNotes = sortForBookmark(NewData.note)
+        setNotes(sortedNotes)
     }
 
 
 
     //To Edit a note
-    const editHandler = (id, Title, Description, Tag, isBookmark, Color) => {
-        let NewNotes = [...Notes]
-        NewNotes.map(ele => {
-            if (ele.id === id) {
-                ele.title = Title
-                ele.description = Description
-                ele.tag = Tag
-                ele.isBookmark = isBookmark
-                ele.Color = Color
-            }
-            return (0)
+    const editHandler = async (id, Title, Description, Tag, isBookmark, Color) => {
+
+        let sentdata = {
+            userId: user._id,
+            id: id,
+            title: Title,
+            description: Description,
+            tag: Tag,
+            isBookmark: isBookmark,
+            backgroundColour: Color
+        }
+
+        const response = await fetch('http://localhost:3001/api/note/updatenote', {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": authtoken.toString()
+            },
+            body: JSON.stringify(sentdata)
         })
-        setNotes(NewNotes)
+
+        let NewData = await response.json()
+
+
+        let sortedNotes = sortForBookmark(NewData.note)
+        setNotes(sortedNotes)
     }
 
     //To change background colour of a note
@@ -109,20 +137,58 @@ const Home = () => {
 
         let NewData = await response.json()
 
-        setNotes(NewData.note)
+
+        let sortedNotes = sortForBookmark(NewData.note)
+        setNotes(sortedNotes)
 
     }
 
     //To bookmark a note
-    const bookmarkHandler = () => {
+    const bookmarkHandler = async (id) => {
         console.log('bookmark')
+        console.log(id)
+        let note = Notes.find(ele => ele._id === id)
+        let updatedNote = note
+        updatedNote.isBookmark = !note.isBookmark
+        updatedNote.userId = user._id
+        updatedNote.id = note._id
 
+
+        console.log(updatedNote)
+        // let sentdata = {
+        //     userId: user._id,
+        //     id: id,
+        //     title: Title,
+        //     description: Description,
+        //     tag: Tag,
+        //     isBookmark: isBookmark,
+        //     backgroundColour: Color
+        // }
+
+        const response = await fetch('http://localhost:3001/api/note/updatenote', {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": authtoken.toString()
+            },
+            body: JSON.stringify(updatedNote)
+        })
+
+        let NewData = await response.json()
+
+        let sortedNotes = sortForBookmark(NewData.note)
+        setNotes(sortedNotes)
     }
 
+    const sortForBookmark = (notes) => {
+        let bookmarkedNotes = notes.filter(ele => ele.isBookmark === true)
+        let unbookmarkedNotes = notes.filter(ele => ele.isBookmark === false)
+        return ([...bookmarkedNotes, ...unbookmarkedNotes])
+    }
     return (
         <div className='home-maincontainer'>
             <div className='add-note-container'>
-                <AddNoteCard />
+                <AddNoteCard newNoteAdded={newNoteAdded} />
             </div>
             <div className='show-notes-maincontainer'>
                 <h2>Your-Diary-Notes</h2>
