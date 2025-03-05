@@ -59,7 +59,7 @@ const NoteCard = (props) => {
 
 
                 <div className={!inFocus ? 'notes-maincontainer' : 'onFocus-container'} style={{ backgroundColor: props.Color }}>
-                    <div className='bookmark-container'>
+                    <div className='bookmark-container' style={{ display: props.isBookmark ? 'flex' : 'none' }}>
                         <Tooltip title="Bookmark" placement="top" arrow>
                             <IconButton className='bookmark-button' onClick={() => props.bookmark(props.id)}>
                                 {/* <BookmarkIcon style={{ fontSize: 23 }}></BookmarkIcon> */}
@@ -79,7 +79,7 @@ const NoteCard = (props) => {
                             <h4>{props.Title}</h4>
                         </div>
                         <div className='notes-description'>
-                            {!inFocus && <p>{props.Description.lenght <= 50 ? props.Description : props.Description.slice(0, 47) + '...'}</p>}
+                            {!inFocus && <p>{props.Description.length <= 50 ? props.Description : (props.Description.slice(0, 47) + '...')}</p>}
                             {inFocus && <p>{props.Description}</p>}
                         </div>
                     </div>
@@ -107,7 +107,7 @@ const NoteCard = (props) => {
                         </Tooltip>
                     </div>
                     {colourPallate &&
-                        <div className='colourPallate' onBlur={() => setColourPallate(false)}>
+                        <div className='colourPallate' onBlur={() => setColourPallate(false)} onMouseLeave={() => setColourPallate(false)}>
                             {colours.map(ele => {
                                 return (
                                     <div className='colour'

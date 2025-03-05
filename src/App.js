@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     let token = localStorage.getItem('authtoken')
-    console.log(token)
+    // console.log(token)
     if (token !== undefined && token !== null) {
       setLogIn(true)
     }
@@ -21,16 +21,22 @@ function App() {
   const logInHandler = () => {
     setLogIn(true)
   }
+
+  const logOutHandler = () => {
+    localStorage.clear()
+    setLogIn(false)
+  }
+
   return (
 
     <Router>
       <Header />
       <Switch>
         <Route path='/'>
-          {logIn ? <Home /> : <Login login={logInHandler} />}
+          {logIn ? <Home Logout={logOutHandler} /> : <Login login={logInHandler} />}
         </Route>
         <Route path='/login'>
-          {logIn ? <Home /> : <Login login={logInHandler} />}
+          {logIn ? <Home Logout={logOutHandler} /> : <Login login={logInHandler} />}
         </Route>
         <Redirect to="/" />
       </Switch>

@@ -2,12 +2,20 @@ import React, { useEffect, useState } from 'react'
 import AddNoteCard from '../../Components/NoteCard/AddNote/AddNoteCard'
 import NoteCard from '../../Components/NoteCard/ShowNoteCard/NoteCard'
 
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Button } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+
+
 import './Home.css'
 
-const Home = () => {
+const Home = (props) => {
 
     const [user, setUser] = useState({})
     const [Notes, setNotes] = useState([])
+    const [logoutbox, setLogoutbox] = useState(false)
 
     const authtoken = localStorage.getItem('authtoken')
 
@@ -40,6 +48,18 @@ const Home = () => {
     }, [authtoken])
 
 
+    const handleLogoutOpen = () => setLogoutbox(true);
+
+    const handleLogoutClose = (condition) => {
+        if (condition) {
+            props.Logout()
+        }
+        setLogoutbox(false);
+    };
+
+
+
+
     const newNoteAdded = async () => {
         const response = await fetch('http://localhost:3001/api/note/fetchallnotes', {
             method: 'GET',
@@ -48,8 +68,8 @@ const Home = () => {
             }
         })
         let NotesData = await response.json()
-
-        let sortedNotes = sortForBookmark(NotesData.note)
+        // console.log(NotesData)
+        let sortedNotes = sortForBookmark(NotesData.notes)
         setNotes(sortedNotes)
     }
 
@@ -79,8 +99,6 @@ const Home = () => {
         let sortedNotes = sortForBookmark(NewData.note)
         setNotes(sortedNotes)
     }
-
-
 
     //To Edit a note
     const editHandler = async (id, Title, Description, Tag, isBookmark, Color) => {
@@ -155,15 +173,6 @@ const Home = () => {
 
 
         console.log(updatedNote)
-        // let sentdata = {
-        //     userId: user._id,
-        //     id: id,
-        //     title: Title,
-        //     description: Description,
-        //     tag: Tag,
-        //     isBookmark: isBookmark,
-        //     backgroundColour: Color
-        // }
 
         const response = await fetch('http://localhost:3001/api/note/updatenote', {
             method: 'PUT',
@@ -185,11 +194,37 @@ const Home = () => {
         let unbookmarkedNotes = notes.filter(ele => ele.isBookmark === false)
         return ([...bookmarkedNotes, ...unbookmarkedNotes])
     }
+
+
+
     return (
         <div className='home-maincontainer'>
             <div className='add-note-container'>
                 <AddNoteCard newNoteAdded={newNoteAdded} />
             </div>
+            <div className='logout-container'>
+
+                <Button variant="outlined" onClick={handleLogoutOpen} endIcon={<LogoutIcon />} color='secondary'>
+                    Logout
+                </Button>
+            </div>
+
+            <Dialog
+                open={logoutbox}
+                onClose={() => handleLogoutClose(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    Do you want to Logout?
+                </DialogTitle>
+                <DialogActions>
+                    <Button onClick={() => handleLogoutClose(false)}>Disagree</Button>
+                    <Button onClick={() => handleLogoutClose(true)} autoFocus>
+                        Agree
+                    </Button>
+                </DialogActions>
+            </Dialog>
             <div className='show-notes-maincontainer'>
                 <h2>Your-Diary-Notes</h2>
                 <div className='show-notes-container'>
