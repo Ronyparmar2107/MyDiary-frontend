@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import '../Form.css'
 import backend_url from '../../env_variables'
-
-import Button from '@mui/material/Button';
+import { CircularProgress } from '@mui/material'
 
 const LoginForm = (props) => {
     const [email, setEmail] = useState('')
@@ -20,7 +19,7 @@ const LoginForm = (props) => {
             alert('Please ENter valid details')
         }
         else {
-            // setLoading(true)
+            setLoading(true)
             let userCreds = {
                 email: email,
                 password: password
@@ -78,10 +77,10 @@ const LoginForm = (props) => {
                     }} />
                 {!isPasswordValid && <span>Please Enter a Valid Password</span>}
             </div>
-            <Button loading onClick={() => {
-                setLoading(true)
+
+            {loading ? <div style={{ height: '35px;', margin: '20px 0' }}><CircularProgress size={'2rem'} /></div> : <button disabled={loading} onClick={() => {
                 submitHandler()
-            }}> Log-In</Button>
+            }}> Log-In</button>}
         </div>
     )
 }

@@ -36,3 +36,13 @@
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
+
+
+@media only screen and (max-width: 600px) {
+
+    .add-notes-close,
+    .add-notes-maincontainer,
+    .notes-maincontainer {
+        width: 60%;
+    }
+}

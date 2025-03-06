@@ -205,6 +205,7 @@ const Home = (props) => {
 
 
 
+
     return (
         <div className='home-maincontainer'>
             <div className='add-note-container'>
@@ -213,7 +214,7 @@ const Home = (props) => {
             <div className='logout-container'>
 
                 <Button variant="outlined" onClick={handleLogoutOpen} endIcon={<LogoutIcon />} color='secondary'>
-                    Logout
+                    {window.screen.width > 600 && 'Logout'}
                 </Button>
             </div>
 
