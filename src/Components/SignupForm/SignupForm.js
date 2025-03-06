@@ -7,6 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Button } from '@mui/material';
+import backend_url from '../../env_variables';
 
 
 const SignupForm = (props) => {
@@ -38,7 +39,8 @@ const SignupForm = (props) => {
                 email: email,
                 password: password
             }
-            const response = await fetch("http://localhost:3001/api/auth/createuser", {
+            // const response = await fetch("http://localhost:3001/api/auth/createuser", {
+            const response = await fetch(`${backend_url}/api/auth/createuser`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(user)
@@ -71,7 +73,8 @@ const SignupForm = (props) => {
             password: password
         }
 
-        const responseOTP = await fetch("http://localhost:3001/api/auth/getotp", {
+        // const responseOTP = await fetch("http://localhost:3001/api/auth/getotp", {
+        const responseOTP = await fetch(`${backend_url}/api/auth/getotp`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(user)

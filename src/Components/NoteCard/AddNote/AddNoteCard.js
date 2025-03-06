@@ -10,6 +10,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Tooltip from '@mui/material/Tooltip';
 
 import './AddNoteCard.css'
+import backend_url from '../../../env_variables';
 
 const NoteCard = (props) => {
     const [Title, setTitle] = useState('')
@@ -42,7 +43,8 @@ const NoteCard = (props) => {
                 tag: tag
             }
             const authtoken = localStorage.getItem('authtoken')
-            const response = await fetch('http://localhost:3001/api/note/createnote', {
+            // const response = await fetch('http://localhost:3001/api/note/createnote', {
+            const response = await fetch(`${backend_url}/api/note/createnote`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

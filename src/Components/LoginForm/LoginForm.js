@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 import '../Form.css'
+import backend_url from '../../env_variables'
+
+import Button from '@mui/material/Button';
 
 const LoginForm = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isEmailValid, setIsEmailValid] = useState(true)
     const [isPasswordValid, setIsPasswordValid] = useState(true)
+    const [loading, setLoading] = useState(false)
 
     // eslint-disable-next-line
     const emailvalidator = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$";
@@ -16,19 +20,21 @@ const LoginForm = (props) => {
             alert('Please ENter valid details')
         }
         else {
+            // setLoading(true)
             let userCreds = {
                 email: email,
                 password: password
             }
 
-            const response = await fetch('http://localhost:3001/api/auth/login', {
+            // const response = await fetch('http://localhost:3001/api/auth/login', {
+            const response = await fetch(`${backend_url}/api/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(userCreds)
             })
 
             const data = await response.json()
-            console.log(data)
+            // console.log(data)
             if (data.success) {
                 localStorage.clear()
                 localStorage.setItem('authtoken', data.authtoken)
@@ -36,7 +42,7 @@ const LoginForm = (props) => {
                 setPassword('')
                 props.setLogin()
             }
-
+            setLoading(false)
         }
     }
     return (
@@ -72,7 +78,10 @@ const LoginForm = (props) => {
                     }} />
                 {!isPasswordValid && <span>Please Enter a Valid Password</span>}
             </div>
-            <button onClick={submitHandler}> Log-In</button>
+            <Button loading onClick={() => {
+                setLoading(true)
+                submitHandler()
+            }}> Log-In</Button>
         </div>
     )
 }
