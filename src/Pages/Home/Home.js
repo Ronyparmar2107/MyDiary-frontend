@@ -19,6 +19,7 @@ const Home = (props) => {
 
     const authtoken = localStorage.getItem('authtoken')
 
+
     useEffect(() => {
         const fetchData = async () => {
 
@@ -47,6 +48,30 @@ const Home = (props) => {
         fetchData()
     }, [authtoken])
 
+
+    const notesType = [
+        {
+            value: 'General',
+            color: ''
+        },
+        {
+            value: 'To-Do',
+            color: '#d64933'
+        },
+        {
+            value: 'Critical',
+            color: '#b39c4d'
+        },
+        {
+            value: 'Schedule',
+            color: '#005291'
+        },
+        {
+            value: 'Resource',
+            color: '#401818'
+        },
+
+    ]
 
     const handleLogoutOpen = () => setLogoutbox(true);
 
@@ -129,38 +154,6 @@ const Home = (props) => {
         setNotes(sortedNotes)
     }
 
-    //To change background colour of a note
-    const colorHandler = async (id, colour) => {
-
-        let Note = Notes.find(ele => ele._id === id)
-
-        let sentdata = {
-            userId: user._id,
-            id: id,
-            title: Note.title,
-            description: Note.description,
-            tag: Note.tag,
-            isBookmark: false,
-            backgroundColour: colour
-        }
-
-        const response = await fetch('http://localhost:3001/api/note/updatenote', {
-            method: 'PUT',
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": authtoken.toString()
-            },
-            body: JSON.stringify(sentdata)
-        })
-
-        let NewData = await response.json()
-
-
-        let sortedNotes = sortForBookmark(NewData.note)
-        setNotes(sortedNotes)
-
-    }
-
     //To bookmark a note
     const bookmarkHandler = async (id) => {
         console.log('bookmark')
@@ -172,7 +165,7 @@ const Home = (props) => {
         updatedNote.id = note._id
 
 
-        console.log(updatedNote)
+        // console.log(updatedNote)
 
         const response = await fetch('http://localhost:3001/api/note/updatenote', {
             method: 'PUT',
@@ -195,13 +188,21 @@ const Home = (props) => {
         return ([...bookmarkedNotes, ...unbookmarkedNotes])
     }
 
+    const getColor = (tag) => {
+        let obj = notesType.filter(e => e.value === tag)
+        if (obj.length === 0) return ''
+        else return obj[0].color
+    }
 
 
     return (
         <div className='home-maincontainer'>
+
             <div className='add-note-container'>
                 <AddNoteCard newNoteAdded={newNoteAdded} />
             </div>
+
+
             <div className='logout-container'>
 
                 <Button variant="outlined" onClick={handleLogoutOpen} endIcon={<LogoutIcon />} color='secondary'>
@@ -225,6 +226,8 @@ const Home = (props) => {
                     </Button>
                 </DialogActions>
             </Dialog>
+
+
             <div className='show-notes-maincontainer'>
                 <h2>Your-Diary-Notes</h2>
                 <div className='show-notes-container'>
@@ -236,11 +239,11 @@ const Home = (props) => {
                                 Description={ele.description}
                                 Tag={ele.tag}
                                 isBookmark={ele.isBookmark}
-                                Color={ele.backgroundColour}
+                                Color={getColor(ele.tag)}
+                                editedDate={ele.updatedDateString}
                                 delete={deleteHandler}
                                 update={editHandler}
-                                bookmark={bookmarkHandler}
-                                changeBg={colorHandler} />
+                                bookmark={bookmarkHandler} />
                         )
                     })}
                 </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Input, MenuItem, InputLabel, Box, FormControl, Select } from '@mui/material'
+import { Input, MenuItem, InputLabel, Box, FormControl, Select, colors, listItemClasses } from '@mui/material'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
@@ -8,6 +8,9 @@ import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 import Tooltip from '@mui/material/Tooltip';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import CircleIcon from '@mui/icons-material/Circle';
 
 import './AddNoteCard.css'
 
@@ -65,6 +68,30 @@ const NoteCard = (props) => {
         }
     }
 
+    const notesType = [
+        {
+            value: 'General',
+            color: ''
+        },
+        {
+            value: 'To-Do',
+            color: '#d64933'
+        },
+        {
+            value: 'Critical',
+            color: '#b39c4d'
+        },
+        {
+            value: 'Schedule',
+            color: '#005291'
+        },
+        {
+            value: 'Resource',
+            color: '#401818'
+        },
+
+    ]
+
 
     return (
         <ThemeProvider theme={darkTheme} >
@@ -107,9 +134,15 @@ const NoteCard = (props) => {
                                     onChange={(e) => { setTag(e.target.value); }}
                                     style={{ color: 'white' }}
                                 >
-                                    <MenuItem value={'General'}>General</MenuItem>
-                                    <MenuItem value={'Personal'}>Personal</MenuItem>
-                                    <MenuItem value={'To-Do'}>To-Do</MenuItem>
+                                    {notesType.map((ele, index) => {
+                                        // return <MenuItem key={index} value={ele.value}>{ele.value}</MenuItem>
+                                        return <MenuItem key={index} value={ele.value}>
+                                            <ListItemIcon>
+                                                <CircleIcon style={{ color: `${ele.color}` }} />
+                                            </ListItemIcon>
+                                            <ListItemText>{ele.value}</ListItemText>
+                                        </MenuItem>
+                                    })}
                                 </Select>
                             </FormControl>
                         </Box>

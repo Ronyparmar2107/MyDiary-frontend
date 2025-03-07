@@ -118,3 +118,30 @@
     border-color: #5f6368;
     cursor: pointer;
 }
+
+.drawer-container {
+    width: 20vw;
+    height: 100%;
+    padding: 0 15px;
+}
+
+.drawer-title {
+    font-size: 25px;
+    background-color: cornflowerblue;
+    width: max-content;
+    border-radius: 19px;
+    padding: 0px 11px;
+}
+
+.drawer-description {
+    background-color: gainsboro;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.drawer-dates {
+    display: flex;
+    font-size: 10px;
+    justify-content: right;
+    padding: 3px;
+}

@@ -7,26 +7,14 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import ColorLensOutlinedIcon from '@mui/icons-material/ColorLensOutlined';
 import Tooltip from '@mui/material/Tooltip';
+import Drawer from '@mui/material/Drawer';
 
 import './NoteCard.css'
 import EditNoteCard from '../EditNote/EditNoteCard';
 
 const NoteCard = (props) => {
     const [inFocus, setinFocus] = useState(false)
-    const [colourPallate, setColourPallate] = useState(false)
     const [EditMode, setEditMode] = useState(false)
-
-
-    const colours = [
-        '',
-        '#8896ab',
-        '#935fa7',
-        '#d64933',
-        '#7f7979',
-        '#b39c4d',
-        '#2f9c95',
-        '#607744'
-    ]
 
     //Added for material ui components
     const darkTheme = createTheme({
@@ -58,7 +46,7 @@ const NoteCard = (props) => {
                 {inFocus || EditMode ? <div className='backdrop' onClick={() => { setinFocus(false) }}></div> : null}
 
 
-                <div className={!inFocus ? 'notes-maincontainer' : 'onFocus-container'} style={{ backgroundColor: props.Color }}>
+                <div className='notes-maincontainer' style={{ backgroundColor: props.Color }}>
                     <div className='bookmark-container' style={{ display: props.isBookmark ? 'flex' : 'none' }}>
                         <Tooltip title="Bookmark" placement="top" arrow>
                             <IconButton className='bookmark-button' onClick={() => props.bookmark(props.id)}>
@@ -99,31 +87,25 @@ const NoteCard = (props) => {
                                 <CreateOutlinedIcon style={{ fontSize: 23 }}></CreateOutlinedIcon>
                             </IconButton>
                         </Tooltip>
-
-                        <Tooltip title="Background Colour" placement="bottom" arrow>
-                            <IconButton className='bgColour-button' onClick={() => { setColourPallate(!colourPallate) }}>
-                                <ColorLensOutlinedIcon style={{ fontSize: 23 }}></ColorLensOutlinedIcon>
-                            </IconButton>
-                        </Tooltip>
                     </div>
-                    {colourPallate &&
-                        <div className='colourPallate' onBlur={() => setColourPallate(false)} onMouseLeave={() => setColourPallate(false)}>
-                            {colours.map(ele => {
-                                return (
-                                    <div className='colour'
-                                        style={{ backgroundColor: `${ele}` }}
-                                        key={colours.indexOf(ele)}
-                                        onClick={() => {
-                                            colourPallateHandler(ele)
-                                        }} />
-                                )
-                            })}
-                        </div>}
 
                 </div>
 
 
             </ThemeProvider>
+            <Drawer anchor='right' open={inFocus} onClose={() => setinFocus(false)}>
+                <div className='drawer-container'>
+                    <div className='drawer-title'>
+                        <h4>{props.Title}</h4>
+                    </div>
+                    <div className='drawer-description'>
+                        {props.Description}
+                    </div>
+                    <div className='drawer-dates'>
+                        Last Edited : {props.editedDate}
+                    </div>
+                </div>
+            </Drawer>
         </>
     )
 }
