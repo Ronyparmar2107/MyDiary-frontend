@@ -10,6 +10,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 
 import './Home.css'
+import backend_url from '../../env_variables';
 
 const Home = (props) => {
 
@@ -23,7 +24,8 @@ const Home = (props) => {
     useEffect(() => {
         const fetchData = async () => {
 
-            const response = await fetch('http://localhost:3001/api/auth/getuser', {
+            // const response = await fetch('http://localhost:3001/api/auth/getuser', {
+            const response = await fetch(`${backend_url}/api/auth/getuser`, {
                 method: 'POST',
                 headers: {
                     "auth-token": authtoken.toString()
@@ -33,7 +35,8 @@ const Home = (props) => {
             setUser(data.data.user)
 
             if (data.success) {
-                const response = await fetch('http://localhost:3001/api/note/fetchallnotes', {
+                // const response = await fetch('http://localhost:3001/api/note/fetchallnotes', {
+                const response = await fetch(`${backend_url}/api/note/fetchallnotes`, {
                     method: 'GET',
                     headers: {
                         "auth-token": authtoken.toString()
@@ -86,7 +89,8 @@ const Home = (props) => {
 
 
     const newNoteAdded = async () => {
-        const response = await fetch('http://localhost:3001/api/note/fetchallnotes', {
+        // const response = await fetch('http://localhost:3001/api/note/fetchallnotes', {
+        const response = await fetch(`${backend_url}/api/note/fetchallnotes`, {
             method: 'GET',
             headers: {
                 "auth-token": authtoken.toString()
@@ -110,7 +114,8 @@ const Home = (props) => {
             userId: user._id
         }
 
-        const response = await fetch('http://localhost:3001/api/note/deletenote', {
+        // const response = await fetch('http://localhost:3001/api/note/deletenote', {
+        const response = await fetch(`${backend_url}/api/note/deletenote`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -138,7 +143,8 @@ const Home = (props) => {
             backgroundColour: Color
         }
 
-        const response = await fetch('http://localhost:3001/api/note/updatenote', {
+        // const response = await fetch('http://localhost:3001/api/note/updatenote', {
+        const response = await fetch(`${backend_url}/api/note/updatenote`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
@@ -167,7 +173,8 @@ const Home = (props) => {
 
         // console.log(updatedNote)
 
-        const response = await fetch('http://localhost:3001/api/note/updatenote', {
+        // const response = await fetch('http://localhost:3001/api/note/updatenote', {
+        const response = await fetch(`${backend_url}/api/note/updatenote`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
@@ -195,6 +202,7 @@ const Home = (props) => {
     }
 
 
+
     return (
         <div className='home-maincontainer'>
 
@@ -206,7 +214,7 @@ const Home = (props) => {
             <div className='logout-container'>
 
                 <Button variant="outlined" onClick={handleLogoutOpen} endIcon={<LogoutIcon />} color='secondary'>
-                    Logout
+                    {window.screen.width > 600 && 'Logout'}
                 </Button>
             </div>
 

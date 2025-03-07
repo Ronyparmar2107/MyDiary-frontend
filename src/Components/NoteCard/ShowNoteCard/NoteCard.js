@@ -96,7 +96,10 @@ const NoteCard = (props) => {
             <Drawer anchor='right' open={inFocus} onClose={() => setinFocus(false)}>
                 <div className='drawer-container'>
                     <div className='drawer-title'>
-                        <h4>{props.Title}</h4>
+                        <b>{props.Title}</b>
+                    </div>
+                    <div className='drawer-tag'>
+                        <p>{props.Tag}</p>
                     </div>
                     <div className='drawer-description'>
                         {props.Description}

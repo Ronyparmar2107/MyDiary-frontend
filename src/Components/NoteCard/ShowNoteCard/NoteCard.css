@@ -131,6 +131,7 @@
     width: max-content;
     border-radius: 19px;
     padding: 0px 11px;
+    margin-top: 5vh;
 }
 
 .drawer-description {
@@ -144,4 +145,13 @@
     font-size: 10px;
     justify-content: right;
     padding: 3px;
+}
+
+.drawer-tag p {
+    color: white;
+    width: max-content;
+    background-color: darkslategray;
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 10px;
 }
