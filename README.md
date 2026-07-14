@@ -62,7 +62,7 @@ src/
 ### Installation
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/Ronyparmar2107/MyDiary-frontend.git
 cd mydiary
 npm install
 npm start
@@ -84,7 +84,3 @@ This app expects a companion backend API (see `src/env_variables.js` for the con
 - `POST /api/note/deletenote` — delete a note
 
 To point at a local backend, uncomment the `localhost:3001` line in `env_variables.js` and comment out the deployed URL.
-
-## License
-
-Add a license of your choice (e.g. MIT).
