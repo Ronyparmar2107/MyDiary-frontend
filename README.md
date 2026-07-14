@@ -1,70 +1,104 @@
-# Getting Started with Create React App
+MyDiary
+MyDiary is a React-based personal note-taking app. Users sign up with OTP email verification, log in, and manage notes with tags, colors, and bookmarks.
+Features
+Authentication — signup with OTP email verification, login with JWT-style auth tokens stored in localStorage.
+Notes CRUD — create, edit, and delete notes.
+Tags & colors — categorize notes as General, To-Do, Critical, Schedule, or Resource, each with a distinct color.
+Bookmarking — pin important notes to the top of the list.
+Note details drawer — click a note to view its full description and last-edited date in a side drawer.
+Responsive UI — built with Material UI (MUI) components and a dark theme.
+Tech Stack
+React (with react-router-dom v5 for routing)
+Material UI (@mui/material, @mui/icons-material)
+Fetch API for backend communication
+Project Structure
+src/
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+├── App.js                  # Root component, routing, auth state
 
-## Available Scripts
+├── App.css
 
-In the project directory, you can run:
+├── index.js                # Entry point
 
-### `npm start`
+├── index.css
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+├── env_variables.js         # Backend URL config
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+├── Components/
 
-### `npm test`
+│   ├── Header/
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+│   │   ├── Header.js
 
-### `npm run build`
+│   │   └── Header.css
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+│   ├── LoginForm/
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+│   │   └── LoginForm.js
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+│   ├── SignupForm/
 
-### `npm run eject`
+│   │   └── SignupForm.js
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+│   └── NoteCard/
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+│       ├── AddNote/
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+│       │   ├── AddNoteCard.js
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+│       │   └── AddNoteCard.css
 
-## Learn More
+│       ├── EditNote/
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+│       │   ├── EditNoteCard.js
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+│       │   └── EditNoteCard.css
 
-### Code Splitting
+│       └── ShowNoteCard/
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+│           ├── NoteCard.js
 
-### Analyzing the Bundle Size
+│           └── NoteCard.css
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+└── Pages/
 
-### Making a Progressive Web App
+    ├── Login/
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+    │   ├── Login.js
 
-### Advanced Configuration
+    │   └── Login.css
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+    └── Home/
 
-### Deployment
+        ├── Home.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+        └── Home.css
+Getting Started
+Prerequisites
+Node.js and npm
+Installation
+git clone <repo-url>
 
-### `npm run build` fails to minify
+cd mydiary
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+npm install
+
+npm start
+
+The app runs at http://localhost:3000.
+Backend
+This app expects a companion backend API (see src/env_variables.js for the configured URL). Endpoints used:
+
+POST /api/auth/getotp — request signup OTP
+POST /api/auth/createuser — create account
+POST /api/auth/login — log in
+POST /api/auth/getuser — fetch logged-in user
+GET /api/note/fetchallnotes — fetch notes
+POST /api/note/createnote — create a note
+PUT /api/note/updatenote — update/bookmark a note
+POST /api/note/deletenote — delete a note
+
+To point at a local backend, uncomment the localhost:3001 line in env_variables.js and comment out the deployed URL.
+License
+Add a license of your choice (e.g. MIT).
+
